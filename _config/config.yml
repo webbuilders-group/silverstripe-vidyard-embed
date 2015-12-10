@@ -1,0 +1,7 @@
+---
+Name: vidyard_embed
+After: "framework/*"
+---
+HtmlEditorField_Toolbar:
+    extensions:
+        - "VidyardInsertMedia"
