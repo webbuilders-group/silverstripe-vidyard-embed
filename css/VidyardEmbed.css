@@ -1,4 +1,21 @@
+.media.vidyard.definedWidth .vidyard_player > span {
+    width: 100% !important;
+    height: auto !important;
+    
+    padding-bottom: 56.35%;
+}
+
+.media.vidyard.definedHeight .vidyard_player > span {
+    height: 100% !important;
+    
+    margin: 0 auto !important;
+}
+
 .media.vidyard.definedSize .vidyard_player > span {
     width: 100% !important;
     height: 100% !important;
+}
+
+.media.vidyard.definedWidth .vidyard_player, .media.vidyard.definedHeight .vidyard_player, .media.vidyard.definedSize .vidyard_player iframe {
+    height: 100%;
 }

@@ -140,14 +140,27 @@ class Vidyard_Result extends Oembed_Result {
             
             //Inject the options into the tag
             if($options) {
+                $definedWidth=false;
+                $definedHeight=false;
+                
                 if(isset($options['width'])) {
-                    $this->extraClass.=' definedSize';
-                    
                     $extraAttr[]='width:'.$options['width'].'px';
+                    
+                    $definedWidth=true;
                 }
                 
                 if(isset($options['height']) && !isset($options['maxheight'])) {
                     $extraAttr[]='height:'.$options['height'].'px';
+                    
+                    $definedHeight=true;
+                }
+                
+                if($definedWidth && $definedHeight) {
+                    $this->extraClass.=' definedSize';
+                }else if($definedWidth) {
+                    $this->extraClass.=' definedWidth';
+                }else if($definedHeight) {
+                    $this->extraClass.=' definedHeight';
                 }
             }
             
