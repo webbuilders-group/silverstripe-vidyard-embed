@@ -6,7 +6,7 @@ Adds support to SilverStripe for embedding Vidyard videos easily into your Silve
 * Ed Chipman ([UndefinedOffset](https://github.com/UndefinedOffset))
 
 ## Requirements
-* SilverStripe CMS 3.1+
+* SilverStripe Framework 3.1+
 
 
 ## Installation

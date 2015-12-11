@@ -11,10 +11,9 @@
             "role": "Developer"
         }
     ],
-
     "require":
     {
-        "silverstripe/cms": "~3.1",
+        "silverstripe/framework": "~3.1"
     },
     "support": {
         "issues": "https://github.com/webbuilders-group/silverstripe-vidyard-embed/issues"
