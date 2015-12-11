@@ -18,7 +18,7 @@ class VidyardInsertMedia extends Extension {
             
             $tabs->push(Tab::create('FromVidyard', _t('VidyardInsertMedia.FROM_VIDYARD', '_From Vidyard'), CompositeField::create(
                                 new LiteralField('headerVidyard', '<h4>' . sprintf($numericLabelTmpl, '1', _t('VidyardInsertMedia.ADD_VIDEO', '_Add Video')) . '</h4>'),
-                                TextField::create('VideoURL', 'http://')->addExtraClass('remoteurl'),
+                                TextField::create('VideoURL', 'http://')->addExtraClass('remoteurl')->setDescription(_t('VidyardInsertMedia.ADD_VIDEO_DESC', '_The url you should use in this field is the sharing page, you can also use some of the settings pages for the video in Vidyard')),
                                 new LiteralField('addVidyard', '<button class="action ui-action-constructive ui-button field add-url add-vidyard" data-icon="addMedia">'._t('VidyardInsertMedia.ADD_VIDEO', '_Add Video').'</button>')
                             )->addExtraClass('content ss-uploadfield')
                         )

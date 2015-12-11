@@ -23,7 +23,7 @@ If you prefer you may also install manually:
 
 
 ## Usage
-This module provides a new insert media option called "From Vidyard" which functions very similar to the "From Web" however it is specific to Vidyard which does not at this time support oEmbed. You will need an API Key from Vidyard as it is used to lookup the information to embed see [here for information](http://support.vidyard.com/articles/Public_Support/Using-the-Vidyard-dashboard-API/) on where to get this. Once you get your api key from Vidyard the user key will suffice. You must add the below to your config before you can add Vidyard videos using this shortcode.
+This module provides a new insert media option called "From Vidyard" which functions very similar to the "From Web" however it is specific to Vidyard which does not at this time support oEmbed. The link expected in this field is either the "Sharing Page" or some of the settings pages including the embed select page. You will need an API Key from Vidyard as it is used to lookup the information to embed see [here for information](http://support.vidyard.com/articles/Public_Support/Using-the-Vidyard-dashboard-API/) on where to get this. Once you get your api key from Vidyard the user key will suffice. You must add the below to your config before you can add Vidyard videos using this shortcode.
 
 ```yml
 Vidyard:
