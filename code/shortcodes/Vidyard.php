@@ -70,6 +70,18 @@ class Vidyard extends Object {
 
 class Vidyard_Result extends Oembed_Result {
     protected $videoID;
+    protected $extraAttr=array();
+    protected $template='VidyardVideo';
+    
+    
+    public function __construct($url, $origin = false, $type = false, array $options = array()) {
+        parent::__construct($url, $origin, $type, $options);
+        
+        $this->extraClass=array();
+        if(isset($options['class'])) {
+            $this->extraClass[$options['class']]=true;
+        }
+    }
     
     /**
      * Fetches the JSON data from the Oembed URL (cached).
@@ -91,7 +103,7 @@ class Vidyard_Result extends Oembed_Result {
             return false;
         }
         
-        if($this->data !== false) {
+        if($this->data!==false) {
             return;
         }
         
@@ -160,20 +172,16 @@ class Vidyard_Result extends Oembed_Result {
                 }
                 
                 if($definedWidth && $definedHeight) {
-                    $this->extraClass.=' definedSize';
+                    $this->extraClass['definedSize']=true;
                 }else if($definedWidth) {
-                    $this->extraClass.=' definedWidth';
+                    $this->extraClass['definedWidth']=true;
                 }else if($definedHeight) {
-                    $this->extraClass.=' definedHeight';
+                    $this->extraClass['definedHeight']=true;
                 }
-            }
-            
-            
-            //Build the html used
-            if($this->extraClass) {
-                $result='<div class="media vidyard '.$this->extraClass.'"'.(!empty($extraAttr) ? ' style="'.implode(';', $extraAttr):'').'">'.$this->HTML.'</div>';
-            }else {
-                $result='<div class="media vidyard"'.(!empty($extraAttr) ? ' style="'.implode(';', $extraAttr):'').'">'.$this->HTML.'</div>';
+                
+                if(!empty($extraAttr)) {
+                    $this->extraAttr['style']=implode(';', $extraAttr);
+                }
             }
             
             
@@ -181,10 +189,104 @@ class Vidyard_Result extends Oembed_Result {
             $this->extend('onBeforeRender', $result);
             
             
-            return $result;
+            return $this->renderWith($this->template);
         }
         
-        return '<a class="'.$this->extraClass.'" href="'.$this->origin.'">'.$this->Title.'</a>';
+        
+        $url=$this->url;
+        $videoID=$this->getVideoID();
+        if($videoID) {
+            $url='http://embed.vidyard.com/share/'.$videoID;
+        }
+        
+        return '<a class="'.$this->getExtraClassHTML().'" href="'.$url.'">'.$this->Title.'</a>';
+    }
+    
+    /**
+     * Adds an extra css class to the element
+     * @param {string} $class CSS Class name to add to the wrapper
+     * @return {Vidyard_Result}
+     */
+    public function addExtraClass($class) {
+        $this->extraClass[$class]=true;
+        
+        return $this;
+    }
+    
+    /**
+     * Gets the raw extra classes array
+     * @return {array} Array of extra classes where the key is the class name
+     */
+    public function getExtraClass() {
+        return $this->extraClass;
+    }
+    
+    /**
+     * Gets the extra classes formatted for html
+     * @return {string}
+     */
+    public function getExtraClassHTML() {
+        return implode(' ', array_keys($this->extraClass));
+    }
+    
+    /**
+     * Sets an attribute on the element
+     * @param {string} $name Name of the attribute to use
+     * @param {string} $value Value to set that attribute to
+     * @return {Vidyard_Result}
+     */
+    public function setAttribute($name, $value) {
+        $this->extraAttr[$name]=$value;
+        
+        return $this;
+    }
+    
+    /**
+     * Gets the raw attributes to add
+     * @return {array}
+     */
+    public function getAttributes() {
+        return $this->extraAttr;
+    }
+    
+    /**
+     * Gets the attributes formatted for html
+     * @return {string}
+     */
+    public function getAttributesHTML() {
+        $exclude=null;
+        
+        $attributes=(array) $this->getAttributes();
+        
+        $attributes=array_filter($attributes, function($v) {
+            return ($v || $v===0 || $v==='0');
+        });
+        
+        if($exclude) {
+            $attributes = array_diff_key($attributes, array_flip($exclude));
+        }
+        
+        // Create markup
+        $parts=array();
+        foreach($attributes as $name=>$value) {
+            if($value===true) {
+                $parts[]=sprintf('%s="%s"', $name, $name);
+            }else {
+                $parts[]=sprintf('%s="%s"', $name, Convert::raw2att($value));
+            }
+        }
+
+        return implode(' ', $parts);
+    }
+    
+    /**
+     * Sets the template to be used for rendering this Vidyard video
+     * @return {Vidyard_Result}
+     */
+    public function setTemplate($template) {
+        $this->template=$template;
+        
+        return $this;
     }
     
     /**

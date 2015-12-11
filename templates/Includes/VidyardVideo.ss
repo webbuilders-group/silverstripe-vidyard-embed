@@ -1,0 +1,1 @@
+<div class="media vidyard<% if $ExtraClass %> $ExtraClassHTML<% end_if %>"<% if $Attributes %> $AttributesHTML<% end_if %>">$HTML</div>
