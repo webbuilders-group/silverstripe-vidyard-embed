@@ -69,6 +69,8 @@ class Vidyard extends Object {
 }
 
 class Vidyard_Result extends Oembed_Result {
+    protected $videoID;
+    
     /**
      * Fetches the JSON data from the Oembed URL (cached).
      * Only sets the internal variable.
@@ -79,6 +81,8 @@ class Vidyard_Result extends Oembed_Result {
         if(empty($videoID)) {
             return false;
         }
+        
+        $this->videoID=$videoID;
         
         
         //Retrieve and Check the api key
@@ -164,14 +168,35 @@ class Vidyard_Result extends Oembed_Result {
                 }
             }
             
+            
+            //Build the html used
             if($this->extraClass) {
-                return '<div class="media vidyard '.$this->extraClass.'"'.(!empty($extraAttr) ? ' style="'.implode(';', $extraAttr):'').'">'.$this->HTML.'</div>';
+                $result='<div class="media vidyard '.$this->extraClass.'"'.(!empty($extraAttr) ? ' style="'.implode(';', $extraAttr):'').'">'.$this->HTML.'</div>';
             }else {
-                return '<div class="media vidyard"'.(!empty($extraAttr) ? ' style="'.implode(';', $extraAttr):'').'">'.$this->HTML.'</div>';
+                $result='<div class="media vidyard"'.(!empty($extraAttr) ? ' style="'.implode(';', $extraAttr):'').'">'.$this->HTML.'</div>';
             }
+            
+            
+            //Allow extensions to tap in for additional requirements
+            $this->extend('onBeforeRender', $result);
+            
+            
+            return $result;
         }
         
         return '<a class="'.$this->extraClass.'" href="'.$this->origin.'">'.$this->Title.'</a>';
+    }
+    
+    /**
+     * Gets the video id in use
+     * @return {string}
+     */
+    public function getVideoID() {
+        if(empty($this->videoID)) {
+            $this->videoID=Vidyard::getVidyardCode($this->url);
+        }
+        
+        return $this->videoID;
     }
 }
 ?>
