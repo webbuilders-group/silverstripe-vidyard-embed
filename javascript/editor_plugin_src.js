@@ -27,8 +27,8 @@
                     var shortCode='[vidyard width="'+el.attr('width')+'"'
                                        +' height="'+el.attr('height')+'"'
                                        +' class="'+el.data('cssclass')+'"'
-                                       +' thumbnail="'+el.data('thumbnail')+'"'
-                                       +']'+el.data('url')
+                                       +' thumbnail="'+jQuery.trim(el.data('thumbnail'))+'"'
+                                       +']'+jQuery.trim(el.data('url'))
                                        +'[/vidyard]';
                     el.replaceWith(shortCode);
                 });
@@ -66,22 +66,24 @@
                         }
                     }
                     
-                    // Build HTML element from embed attributes.
-                    attributes.cssclass=attributes['class'];
-                    url=matches[3];
-                    imgEl=jQuery('<img/>').attr({
-                                                'src': attributes['thumbnail'],
-                                                'width': attributes['width'],
-                                                'height': attributes['height'],
-                                                'class': attributes['cssclass'],
-                                                'data-url': url
-                                            }).addClass('ss-htmleditorfield-file vidyard');
-                    
-                    jQuery.each(attributes, function (key, value) {
-                        imgEl.attr('data-'+key, value);
-                    });
-                    
-                    content=content.replace(matches[0], prefix+(jQuery('<div/>').append(imgEl).html())+suffix);
+                    try {
+                        // Build HTML element from embed attributes.
+                        attributes.cssclass=attributes['class'];
+                        url=matches[3];
+                        imgEl=jQuery('<img/>').attr({
+                                                    'src': attributes['thumbnail'],
+                                                    'width': attributes['width'],
+                                                    'height': attributes['height'],
+                                                    'class': attributes['cssclass'],
+                                                    'data-url': jQuery.trim(url)
+                                                }).addClass('ss-htmleditorfield-file vidyard');
+                        
+                        jQuery.each(attributes, function (key, value) {
+                            imgEl.attr('data-'+key, value);
+                        });
+                        
+                        content=content.replace(matches[0], prefix+(jQuery('<div/>').append(imgEl).html())+suffix);
+                    }catch(e) {}
                 }
                 
                 o.content=content;

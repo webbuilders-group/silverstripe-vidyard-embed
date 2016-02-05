@@ -93,9 +93,9 @@ class VidyardInsertMedia extends Extension {
         return array(
                     new File(array(
                                 'Title'=>$videoID,
-                                'Filename'=>$url
+                                'Filename'=>trim($url)
                             )),
-                    $url
+                    trim($url)
                 );
     }
     

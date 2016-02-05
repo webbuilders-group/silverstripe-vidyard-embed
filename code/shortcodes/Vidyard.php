@@ -17,10 +17,10 @@ class Vidyard extends Object {
      */
     public static function handle_shortcode($arguments, $url, $parser, $shortcode) {
         if(isset($arguments['type'])) {
-            $type = $arguments['type'];
+            $type=$arguments['type'];
             unset($arguments['type']);
-        } else {
-            $type = false;
+        }else {
+            $type=false;
         }
         
         
@@ -44,7 +44,7 @@ class Vidyard extends Object {
      * @return {Vidyard_Result}
      */
     public static function get_video_from_url($url, $options=array()) {
-        return new Vidyard_Result($url, false, false, $options);
+        return new Vidyard_Result(trim($url), false, false, $options);
     }
     
     /**
