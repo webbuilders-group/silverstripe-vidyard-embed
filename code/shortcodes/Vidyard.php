@@ -72,10 +72,13 @@ class Vidyard_Result extends Oembed_Result {
     protected $videoID;
     protected $extraAttr=array();
     protected $template='VidyardVideo';
+    protected $_useLightbox=false;
     
     
     public function __construct($url, $origin = false, $type = false, array $options = array()) {
         parent::__construct($url, $origin, $type, $options);
+        
+        $this->_useLightbox=(isset($options['lightbox']) && $options['lightbox']==true);
         
         $this->extraClass=array();
         if(isset($options['class'])) {
@@ -133,8 +136,22 @@ class Vidyard_Result extends Oembed_Result {
                     'width'=>$data['width'],
                     'height'=>$data['height'],
                     'title'=>$data['name'],
-                    'html'=>'<script type="text/javascript" id="vidyard_embed_code_'.Convert::raw2att($videoID).'" src="//play.vidyard.com/'.rawurlencode($videoID).'.js?v=3.0&type=inline"></script>'
+                    'html'=>'<script type="text/javascript" id="vidyard_embed_code_'.Convert::raw2att($videoID).'" src="//play.vidyard.com/'.rawurlencode($videoID).'.js?v=3.0&type='.($this->_useLightbox ? 'lightbox':'inline').'"></script>'
                 );
+        
+        
+        //For lightbox we need to add some extra html for triggering the video popup
+        if($this->_useLightbox) {
+            $data['html'].='<div class="outer_vidyard_wrapper">'.
+                                '<div class="vidyard_wrapper" onclick="fn_vidyard_'.Convert::raw2att($videoID).'();">'.
+                                    '<img alt="'.Convert::raw2att($data['title']).'" width="'.$data['width'].'" src="//play.vidyard.com/'.rawurlencode($videoID).'.jpg?"/>'.
+                                    '<div class="vidyard_play_button">'.
+                                        '<a href="javascript:void(0);"></a>'.
+                                    '</div>'.
+                                '</div>'.
+                            '</div>';
+        }
+        
         
         // Purge everything if the type does not match.
         if($this->type && $this->type!=$data['type']) {

@@ -28,8 +28,9 @@
                                        +' height="'+el.attr('height')+'"'
                                        +' class="'+el.data('cssclass')+'"'
                                        +' thumbnail="'+jQuery.trim(el.data('thumbnail'))+'"'
-                                       +']'+jQuery.trim(el.data('url'))
-                                       +'[/vidyard]';
+                                       +' lightbox="'+(el.data('lightbox')==true ? 'true':'false')+'"'
+                                   +']'+jQuery.trim(el.data('url'))
+                                   +'[/vidyard]';
                     el.replaceWith(shortCode);
                 });
                 

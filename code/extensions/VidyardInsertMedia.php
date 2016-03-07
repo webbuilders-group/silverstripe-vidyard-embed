@@ -143,7 +143,8 @@ class VidyardInsertMedia extends Extension {
                                     'left'=>_t('HtmlEditorField.CSSCLASSLEFT', 'On the left, with text wrapping around.'),
                                     'right'=>_t('HtmlEditorField.CSSCLASSRIGHT', 'On the right, with text wrapping around.')
                                 )
-                            )->addExtraClass('last')
+                            )->addExtraClass('last'),
+            new CheckboxField('UseLightbox', _t('VidyardInsertMedia.USE_LIGHTBOX', '_Use the Lightbox Display'))
         );
         
         if($file->Width != null){

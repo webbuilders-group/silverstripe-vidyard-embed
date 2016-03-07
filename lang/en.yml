@@ -3,3 +3,4 @@ en:
         FROM_VIDYARD: "From Vidyard"
         ADD_VIDEO: "Add Video"
         ADD_VIDEO_DESC: "The url you should use in this field is the sharing page, you can also use some of the settings pages for the video in Vidyard"
+        USE_LIGHTBOX: "Use the Lightbox Display"

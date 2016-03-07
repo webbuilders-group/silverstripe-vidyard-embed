@@ -73,6 +73,13 @@
          * Insert an vidyard object tag into the content. Requires the 'media' plugin for serialization of tags into <img> placeholders.
          */
         $('form.htmleditorfield-mediaform .ss-htmleditorfield-file.embed.vidyard').entwine({
+            getExtraData: function() {
+                var data=this._super();
+                
+                return $.extend({
+                                'lightbox':(this.find(':input[name=UseLightbox]').is(':checked') ? 'true':'false')
+                            }, data);
+            },
             getHTML: function() {
                 var el,
                 attrs=this.getAttributes(),
@@ -91,6 +98,11 @@
                 }
                 
                 return $('<div />').append(el).html(); // Little hack to get outerHTML string
+            },
+            updateFromNode: function(node) {
+                this._super(node);
+                
+                this.find(':input[name=UseLightbox]').prop('checked', (node.data('lightbox')==true));
             }
         });
     });
