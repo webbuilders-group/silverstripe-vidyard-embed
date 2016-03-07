@@ -78,7 +78,7 @@ class Vidyard_Result extends Oembed_Result {
     public function __construct($url, $origin = false, $type = false, array $options = array()) {
         parent::__construct($url, $origin, $type, $options);
         
-        $this->_useLightbox=(isset($options['lightbox']) && $options['lightbox']==true);
+        $this->_useLightbox=(isset($options['lightbox']) && ($options['lightbox']===true || $options['lightbox']=='true'));
         
         $this->extraClass=array();
         if(isset($options['class'])) {
