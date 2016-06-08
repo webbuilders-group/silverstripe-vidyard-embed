@@ -213,7 +213,7 @@ class Vidyard_Result extends Oembed_Result {
         $url=$this->url;
         $videoID=$this->getVideoID();
         if($videoID) {
-            $url='http://embed.vidyard.com/share/'.$videoID;
+            $url='https://embed.vidyard.com/share/'.$videoID;
         }
         
         return '<a class="'.$this->getExtraClassHTML().'" href="'.$url.'">'.$this->Title.'</a>';
