@@ -143,7 +143,7 @@ class Vidyard_Result extends Oembed_Result {
         //For lightbox we need to add some extra html for triggering the video popup
         if($this->_useLightbox) {
             $data['html'].='<div class="outer_vidyard_wrapper">'.
-                                '<div class="vidyard_wrapper" onclick="fn_vidyard_'.Convert::raw2att($videoID).'();">'.
+                                '<div class="vidyard_wrapper" onclick="fn_vidyard_'.Convert::raw2att(preg_replace('/[^0-9a-zA-Z_$]/', '$', $videoID)).'();">'.
                                     '<img alt="'.Convert::raw2att($data['title']).'" width="'.$data['width'].'" src="//play.vidyard.com/'.rawurlencode($videoID).'.jpg?"/>'.
                                     '<div class="vidyard_play_button">'.
                                         '<a href="javascript:void(0);"></a>'.
