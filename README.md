@@ -33,5 +33,5 @@ Vidyard:
 If you want you may also add this short code manually to your WYSIWYG by using the below syntax, all arguments are optional.
 
 ```
-[vidyard width="600" height="480" class="leftAlone" thumbnail="URL_FOR_THUMBNAIL"]URL_FOR_VIDEO[/vidyard]
+[vidyard,width="600",height="480",class="leftAlone",thumbnail="URL_FOR_THUMBNAIL"]URL_FOR_VIDEO[/vidyard]
 ```
