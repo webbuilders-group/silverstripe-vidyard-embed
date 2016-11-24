@@ -1,4 +1,4 @@
-<script type="text/javascript" id="vidyard_embed_code_{$VideoID.ATT}" src="//play.vidyard.com/{$VideoID.URLATT}.js?v=3.1.1&type=<% if $UseLightbox %>lightbox<% else %>inline<% end_if %>"></script>
+<script type="text/javascript" id="vidyard_embed_code_{$VideoID.ATT}" src="//play.vidyard.com/{$VideoID.URLATT}.js?v=3.1.1&amp;type=<% if $UseLightbox %>lightbox<% else %>inline<% end_if %>"></script>
 
 <% if $UseLightbox %>
     <div class="outer_vidyard_wrapper">
