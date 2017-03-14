@@ -53,7 +53,11 @@ class Vidyard extends Object {
      * @return {bool} Returns boolean true on success false otherwise
      */
     public static function validateVidyardURL($url) {
-        return (preg_match('/^http(s?):\/\/(secure|embed)\.vidyard\.com\/(.*?)\/([a-zA-Z0-9_-]+)(((\/|\?)(.*?))*)$/', $url)==true);
+        return (preg_match('/^'.
+                                '(http(s?):\/\/secure\.vidyard\.com\/organizations\/(\d+)\/(.*?)\/([a-zA-Z0-9_-]+)(((\/|\?)(.*?))*))'.
+                                '|'.
+                                '(http(s?):\/\/embed\.vidyard\.com\/share\/([a-zA-Z0-9_-]+)(((\/|\?)(.*?))*))'.
+                            '$/', $url)==true);
     }
     
     /**
@@ -63,7 +67,10 @@ class Vidyard extends Object {
      */
     public static function getVidyardCode($url) {
         if(self::validateVidyardURL($url)) {
-            return preg_replace('/^http(s?):\/\/(secure|embed)\.vidyard\.com\/(.*?)\/([a-zA-Z0-9_-]+)(((\/|\?)(.*?))*)$/', '$4', $url);
+            return preg_replace(array(
+                                    '/^http(s?):\/\/secure\.vidyard\.com\/organizations\/(\d+)\/(.*?)\/([a-zA-Z0-9_-]+)(((\/|\?)(.*?))*)$/',
+                                    '/^http(s?):\/\/(embed)\.vidyard\.com\/(share)\/([a-zA-Z0-9_-]+)(((\/|\?)(.*?))*)$/'
+                                ), '$4', $url);
         }
     }
 }
