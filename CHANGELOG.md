@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.4.1](https://github.com/webbuilders-group/silverstripe-vidyard-embed/tree/0.4.1) (2017-03-14)
+[Full Changelog](https://github.com/webbuilders-group/silverstripe-vidyard-embed/compare/0.4.0...0.4.1)
+
 ## [0.4.0](https://github.com/webbuilders-group/silverstripe-vidyard-embed/tree/0.4.0) (2017-03-14)
 [Full Changelog](https://github.com/webbuilders-group/silverstripe-vidyard-embed/compare/0.3.0...0.4.0)
 
