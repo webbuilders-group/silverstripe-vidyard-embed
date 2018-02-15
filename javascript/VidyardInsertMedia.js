@@ -99,6 +99,13 @@
                 
                 return $('<div />').append(el).html(); // Little hack to get outerHTML string
             },
+            /**
+             * Insert updated HTML content into the rich text editor
+             */
+            insertHTML: function(ed) {
+                // Insert content
+                ed.replaceContent(this.getHTML());
+            },
             updateFromNode: function(node) {
                 this._super(node);
                 
